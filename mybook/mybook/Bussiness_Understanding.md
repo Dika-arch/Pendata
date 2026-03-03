@@ -1,4 +1,0 @@
-# Bussiness Understanding
-
-
-
