@@ -7,6 +7,7 @@ chapters:
 - file: Bussiness_Understanding
 - file: Data_Understanding
 - file: Missing_Values_Inputation
+- file: Analisa_Data_Kesuburan_Tanah
 - file: Data_Preparation
 - file: Modelling
 - file: Deploymen
