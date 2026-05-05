@@ -8,6 +8,5 @@ chapters:
 - file: Data_Understanding
 - file: Missing_Values_Inputation
 - file: Analisa_Data_Kesuburan_Tanah
-- file: Data_Preparation
-- file: Modelling
-- file: Deploymen
+- file: Analisa_Data_Menggunakan_Naive_Bayes
+
