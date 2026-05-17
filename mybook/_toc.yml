@@ -10,5 +10,6 @@ chapters:
 - file: Analisa_Data_Kesuburan_Tanah
 - file: Analisa_Data_Menggunakan_Naive_Bayes
 - file: Analisa_Data_Menggunakan_Pohon_Keputusan
+- file: Analisa_Data_Menggunakan_Random_Forest
 
 
