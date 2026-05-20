@@ -394,7 +394,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-invers-x-tx-1">3.4 Menghitung Invers ((X^TX)^{-1})</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-x-ty">3.5 Menghitung (X^TY)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-beta-atau-koefisien-regresi">3.6 Menghitung Beta atau Koefisien Regresi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dengan-geogebra">4. Visualisasi dengan GeoGebra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regresi-linier-menggunakan-sklearn">4. Regresi Linier Menggunakan <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dengan-geogebra">5. Visualisasi dengan GeoGebra</a></li>
 </ul>
             </nav>
         </div>
@@ -421,7 +422,7 @@ document.write(`
 \]</div>
 <p>Keterangan:</p>
 <ul class="simple">
-<li><p>(\hat{Y}) = nilai <strong>Y prediksi</strong> atau nilai Sales yang diperkirakan oleh model.</p></li>
+<li><p>(Y)= nilai <strong>Y prediksi</strong> atau nilai Sales yang diperkirakan oleh model.</p></li>
 <li><p>(Y) = nilai <strong>Y asli</strong> atau Sales sebenarnya dari data.</p></li>
 <li><p>(X) = variabel bebas/predictor. Pada laporan ini, (X) dianggap sebagai <strong>TV</strong>.</p></li>
 <li><p>(p_0) = (\beta_0), yaitu <strong>intercept/konstanta</strong>. Nilai ini menunjukkan prediksi (Y) ketika (X = 0).</p></li>
@@ -889,8 +890,41 @@ p_1 = -16.8 + 17.85 = 1.05
 \end{bmatrix}
 \end{split}\]</div>
 </section>
+<section id="regresi-linier-menggunakan-sklearn">
+<h2>4. Regresi Linier Menggunakan <code class="docutils literal notranslate"><span class="pre">sklearn</span></code><a class="headerlink" href="#regresi-linier-menggunakan-sklearn" title="Permalink to this heading">#</a></h2>
+<p>Pada tahap ini, data dihitung menggunakan library <code class="docutils literal notranslate"><span class="pre">LinearRegression</span></code> dari <code class="docutils literal notranslate"><span class="pre">sklearn.linear_model</span></code>. Library ini akan mencari nilai intercept dan koefisien regresi secara otomatis.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">data</span><span class="p">[[</span><span class="s2">&quot;TV_X&quot;</span><span class="p">]]</span>       <span class="c1"># X harus berbentuk 2 dimensi</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;Sales_Y&quot;</span><span class="p">]</span>      <span class="c1"># Y adalah target/response</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+
+<span class="n">p0_sklearn</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
+<span class="n">p1_sklearn</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Hasil dengan sklearn&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p0 / beta0 / intercept  =&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p0_sklearn</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;p1 / beta1 / koefisien X =&quot;</span><span class="p">,</span> <span class="nb">round</span><span class="p">(</span><span class="n">p1_sklearn</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Persamaan regresi: Y_pred = </span><span class="si">{</span><span class="n">p0_sklearn</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> + </span><span class="si">{</span><span class="n">p1_sklearn</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">X&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Hasil dengan sklearn
+p0 / beta0 / intercept  = 0.4
+p1 / beta1 / koefisien X = 1.05
+Persamaan regresi: Y_pred = 0.4000 + 1.0500X
+</pre></div>
+</div>
+</div>
+</div>
+</section>
 <section id="visualisasi-dengan-geogebra">
-<h2>4. Visualisasi dengan GeoGebra<a class="headerlink" href="#visualisasi-dengan-geogebra" title="Permalink to this heading">#</a></h2>
+<h2>5. Visualisasi dengan GeoGebra<a class="headerlink" href="#visualisasi-dengan-geogebra" title="Permalink to this heading">#</a></h2>
 <p>Pada GeoGebra, data dimasukkan sebagai titik koordinat:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>A = (2, 2)
 B = (4, 3)
@@ -980,7 +1014,8 @@ f: y = 1.05x + 0.4
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-invers-x-tx-1">3.4 Menghitung Invers ((X^TX)^{-1})</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-x-ty">3.5 Menghitung (X^TY)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#menghitung-beta-atau-koefisien-regresi">3.6 Menghitung Beta atau Koefisien Regresi</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dengan-geogebra">4. Visualisasi dengan GeoGebra</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#regresi-linier-menggunakan-sklearn">4. Regresi Linier Menggunakan <code class="docutils literal notranslate"><span class="pre">sklearn</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visualisasi-dengan-geogebra">5. Visualisasi dengan GeoGebra</a></li>
 </ul>
   </nav></div>
 
